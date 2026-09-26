@@ -3,9 +3,10 @@ plugins {
 }
 
 group = 'net.draycia'
-version = '1.0-SNAPSHOT'
+version = '1.0.0-SNAPSHOT'
 
 repositories {
+    mavenLocal()
     mavenCentral()
     maven {
         name = "papermc-repo"
@@ -19,7 +20,7 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
-    compileOnly("de.hexaoxi:carbonchat-api:3.0.0-beta.27")
+    compileOnly("de.hexaoxi:carbonchat-api:3.0.0-beta.39.2")
 }
 
 def targetJavaVersion = 21

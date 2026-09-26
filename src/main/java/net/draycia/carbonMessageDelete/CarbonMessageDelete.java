@@ -5,7 +5,6 @@ import net.draycia.carbon.api.CarbonChatProvider;
 import net.draycia.carbon.api.event.events.CarbonChatEvent;
 import net.draycia.carbon.api.users.CarbonPlayer;
 import net.draycia.carbon.api.util.KeyedRenderer;
-import net.kyori.adventure.chat.SignedMessage;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -32,11 +31,11 @@ public final class CarbonMessageDelete extends JavaPlugin {
 
                 final @Nullable Component prefix;
 
-                if (event.signedMessage() == null) {
+                if (event.signedMessage() == null || !event.signedMessage().canDelete()) {
                     prefix = getConfig().getComponent("invalid_button_format", MiniMessage.miniMessage());
                 } else {
                     prefix = getConfig().getComponent("button_format", MiniMessage.miniMessage()).clickEvent(ClickEvent.callback(player -> {
-                        deleteMessage(event.signedMessage().signature());
+                        this.carbonChat.deleteMessage(event.signedMessage().signature());
                     }));
                 }
 
@@ -52,12 +51,6 @@ public final class CarbonMessageDelete extends JavaPlugin {
     @Override
     public void onDisable() {
 
-    }
-
-    public void deleteMessage(final SignedMessage.Signature signature) {
-        for (final CarbonPlayer player : this.carbonChat.server().players()) {
-            player.deleteMessage(signature);
-        }
     }
 
 }
